@@ -47,7 +47,7 @@ Proyek ini dibangun dari nol dalam semalam untuk memenuhi tantangan seleksi, den
 
 1.  **Clone repository ini:**
     ```bash
-    git clone [URL_REPOSITORY_KAMU]
+    git clone [https://github.com/Miftchul/NewMyLibrary]
     ```
 2.  **Install dependencies:**
     ```bash
