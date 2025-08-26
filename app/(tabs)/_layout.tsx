@@ -1,45 +1,43 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import LibraryScreen from './index';
+import SearchScreen from './search';
+import MyBooksScreen from './mybooks';
+import ProfileScreen from './profile'; // Nama file tetap profile
+import { Ionicons } from '@expo/vector-icons';
+import { AuthProvider } from '../../context/AuthContext'; // <-- 1. IMPORT AuthProvider
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+const Tab = createBottomTabNavigator();
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+export default function Layout() {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
+    // <-- 2. BUNGKUS Tab.Navigator dengan AuthProvider
+    <AuthProvider> 
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ color, size }) => {
+            let iconName: React.ComponentProps<typeof Ionicons>['name'] = 'help-outline';
+            // Logika ikonmu sudah benar, tidak perlu diubah
+            if (route.name === 'Library') iconName = 'home-outline';
+            else if (route.name === 'Search') iconName = 'search-outline';
+            else if (route.name === 'MyBooks') iconName = 'book-outline';
+            else if (route.name === 'Profile') iconName = 'person-outline';
+            return <Ionicons name={iconName} size={size} color={color} />;
           },
-          default: {},
-        }),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
-    </Tabs>
+          headerShown: false,
+          tabBarActiveTintColor: '#007AFF',
+          tabBarInactiveTintColor: '#888',
+          // Tambahkan style untuk tab bar agar sesuai dengan tema gelapmu
+          tabBarStyle: {
+            backgroundColor: '#181818',
+            borderTopColor: '#232323'
+          }
+        })}
+      >
+        <Tab.Screen name="Library" component={LibraryScreen} />
+        <Tab.Screen name="Search" component={SearchScreen} />
+        <Tab.Screen name="MyBooks" component={MyBooksScreen} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
+      </Tab.Navigator>
+    </AuthProvider>
   );
 }
