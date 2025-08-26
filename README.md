@@ -1,50 +1,79 @@
-# Welcome to your Expo app 👋
+# MyLibrary App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+MyLibrary adalah aplikasi mobile untuk menelusuri, membaca, dan mengelola koleksi buku digital. Aplikasi ini dibangun sebagai bagian dari proses seleksi magang, menunjukkan implementasi aplikasi full-stack menggunakan React Native dan Supabase.
 
-## Get started
+---
 
-1. Install dependencies
+## 📖 Tentang Proyek
 
-   ```bash
-   npm install
-   ```
+Aplikasi ini memungkinkan pengguna untuk mendaftar dan login, menelusuri daftar buku, menambahkan buku ke koleksi pribadi ("MyBooks"), dan membacanya. Terdapat juga sistem hak akses di mana seorang **Admin** dapat mengelola data buku (Tambah, Edit, Hapus) langsung dari dalam aplikasi melalui panel admin khusus.
 
-2. Start the app
+Proyek ini dibangun dari nol dalam semalam untuk memenuhi tantangan seleksi, dengan fokus pada implementasi backend yang aman, fungsionalitas *real-time*, dan *user experience* yang bersih.
 
-   ```bash
-   npx expo start
-   ```
+## ✨ Fitur Utama
 
-In the output, you'll find options to open the app in a
+-   **Autentikasi User**: Sistem registrasi dan login yang aman menggunakan Supabase Auth.
+-   **Katalog Buku**: Menampilkan daftar buku dari database PostgreSQL yang bisa ditelusuri.
+-   **Koleksi Pribadi (MyBooks)**: Setiap user dapat menyimpan buku pilihannya ke dalam daftar bacaan pribadi.
+-   **Mode Baca**: Halaman simpel untuk membaca konten buku.
+-   **Panel Admin dengan Fitur CRUD**:
+    -   User dengan role Admin memiliki akses ke panel khusus di halaman profil.
+    -   **Create**: Menambah data buku baru melalui form di dalam aplikasi.
+    -   **Read**: Melihat daftar semua buku yang ada di database.
+    -   **Update**: Mengedit informasi buku yang sudah ada.
+    -   **Delete**: Menghapus buku dari database.
+-   **Keamanan Database (RLS)**: Implementasi Row Level Security di Supabase untuk memastikan:
+    -   User hanya bisa melihat dan mengelola data pinjaman miliknya sendiri.
+    -   Hanya Admin yang bisa melakukan operasi CUD (Create, Update, Delete) pada data buku.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 🛠️ Teknologi yang Digunakan
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+-   **Frontend**: React Native, Expo, TypeScript
+-   **Backend & Database**: Supabase
+-   **Tipe Database**: PostgreSQL
+-   **Navigasi**: Expo Router
+-   **State Management**: React Context
+-   **Styling**: React Native StyleSheet
 
-## Get a fresh project
+## 🚀 Konsep Kunci yang Diimplementasikan
 
-When you're ready, run:
+-   **Full-stack Mobile Development**: Mengintegrasikan aplikasi frontend dengan layanan backend dan database.
+-   **Otentikasi Real-time**: Mengelola sesi login user secara *real-time* menggunakan Supabase Auth Listener.
+-   **Operasi Database SQL**: Melakukan query `SELECT`, `INSERT`, `UPDATE`, dan `DELETE` ke database PostgreSQL dari aplikasi React Native.
+-   **Role-Based Access Control (RBAC)**: Membedakan fitur yang tersedia untuk user biasa dan Admin berdasarkan hak akses.
+-   **Keamanan Data**: Menerapkan Row Level Security untuk melindungi data user dan membatasi operasi berbahaya.
 
-```bash
-npm run reset-project
-```
+## ⚙️ Setup & Instalasi Lokal
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+1.  **Clone repository ini:**
+    ```bash
+    git clone [URL_REPOSITORY_KAMU]
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Setup Environment Variables:**
+    Buat file bernama `.env` di root project dan isi dengan kunci Supabase-mu.
+    ```
+    EXPO_PUBLIC_SUPABASE_URL=URL_PROYEK_SUPABASE_KAMU
+    EXPO_PUBLIC_SUPABASE_ANON_KEY=ANON_PUBLIC_KEY_KAMU
+    ```
+    Kemudian, ubah file `supabaseClient.ts` untuk membaca variabel ini.
 
-## Learn more
+4.  **Jalankan aplikasi:**
+    ```bash
+    npx expo start
+    ```
 
-To learn more about developing your project with Expo, look at the following resources:
+## 🔮 Rencana Pengembangan Selanjutnya
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+-   **Upload Gambar Lokal**: Mengganti input URL gambar manual dengan fitur upload dari galeri HP menggunakan `expo-image-picker` dan Supabase Storage.
+-   **Panel Admin Berbasis Web**: Membangun dashboard admin terpisah di web untuk manajemen yang lebih komprehensif.
+-   **Sistem Rating & Ulasan**: Memungkinkan user untuk memberikan rating dan ulasan pada buku yang telah mereka baca.
 
-## Join the community
+---
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Dibuat dengan semangat oleh **[Nama Lengkap Kamu]**
+-   [LinkedIn Kamu](https://www.linkedin.com/in/agus-miftachul-huda/)
+-   [GitHub Kamu](https://github.com/Miftchul)
